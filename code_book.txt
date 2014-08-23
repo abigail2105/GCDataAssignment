@@ -1,0 +1,252 @@
+This is the Code Book for Coursera Getting and Cleaning Data Assignment by student Abigail Moore
+
+This code book describes the data in the file "mytidydata.txt", stored on my Github repository (https://github.com/abigail2105/GCDataAssignment) with the direct link url: https://github.com/abigail2105/GCDataAssignment/blob/bfded6225acacdcdba0707e389de55b7acb05f41/run_analysis.R
+and READ.me file stored in the same repository at https://github.com/abigail2105/GCDataAssignment/blob/master/README.md.
+
+1. Data origin and acknowledgments
+
+The data summarised in the file "mytidydata.txt" originate from the following source:
+
+Human Activity Recognition Using Smartphones Dataset
+Version 1.0
+==================================================================
+Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto.
+Smartlab - Non Linear Complex Systems Laboratory
+DITEN - Università degli Studi di Genova.
+Via Opera Pia 11A, I-16145, Genoa, Italy.
+activityrecognition@smartlab.ws
+www.smartlab.ws
+
+Full details of this project area available via the url: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones.
+
+The 30 volunteers wore a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, the researchers captured 3-axial linear acceleration and 3-axial angular velocity measurements at a constant rate of 50Hz. The experiments were video-recorded to label the data manually. The obtained dataset were randomly partitioned into two sets, where 70% of the volunteers were selected for generating the training data and 30% for the test data. For the purposes of the assignment these two datasets were pooled, thereby using the data from all 30 subjects.
+
+The data for this project were donloaded from the url: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+This zip-file contained the following data files: 
+
+- 'README.txt'- a (somewhat coonfusing) general overview of the data soruce and content
+
+- 'features_info.txt': basic information about the variables used on the feature vector.
+
+- 'features.txt': a list of all the variables, called features.
+
+- 'activity_labels.txt': class labels giving the names for each activity
+
+- 'X_train.txt': Training data set, in 7352 tab-delimited rows with 561 variable values separated by spaces.
+
+- 'y_train.txt': Training activity labels for each row in train/X_train.txt, tab delimited
+
+- 'subject_train.txt: Training subject labels for each row in train/X_train.txt, tab delimited
+
+- 'X_test.txt': Test set, in 2947 tab-delimited rows with 561 variable values separated by spaces.
+
+- 'y_test.txt': Test activity labels for each row in train/X_train.txt, tab delimited
+
+- 'subject_test.txt': Test subject labels for each row in train/X_train.txt, tab delimited
+
+For the data files 'X_train.txt' and 'X_test.txt':
+* The feature data were normalized and bounded within [-1,1].
+* Each feature vector (for one activity/subject pair) is a row on the text file
+
+Raw data not used:
+Additional raw data files were available for the train and test data but not used in this analysis. Information on these files is given below, in particular to show the initial units of the raw data, before conversion to standard normalised units. 
+
+- total_acc_x_train.txt', 'total_acc_y_train.txt', 'total_acc_z_train.txt' and total_acc_x_test.txt', 'total_acc_y_test.txt', 'total_acc_z_test.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g' for the X, Y and Z axis. 
+
+- 'body_acc_x_train.txt' and 'body_acc_x_test.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration. 
+
+- 'body_gyro_x_train.txt' and 'body_gyro_x_test.txt': The angular velocity vector measured by the gyroscope for each window sample, in units of radians/second. 
+
+
+For more information about this dataset contact: activityrecognition@smartlab.ws
+
+
+2. Description of the data set in "mytidydata.txt"
+
+Columns: 4; Rows: 15480; text delimited file, can be loaded into R with read.delim("mytidydata.txt", sep = " ")
+
+The data in this file are the mean values for 86 of the variables recorded in the experiment by Reyes-Ortiz et al. described above. 
+
+There were a total of 10299 records for 561 variables in the merged test/train dataset. Taking the mean dan standard deviation values only and then taking the mean of each of these by activity and subject produced 15480 rows i.e. 6 (activities) x 30 (subjects) X 86 (variables) in the "mytidydata" dataset, in standard long/narrow format with four columns (activity, subject, variable and value).
+
+Units: The original data were normalised and and bounded within [-1,1] and are thus standardised non-dimensional statistical units based on the assumed normal distribution of variables. These units have been preserved throughout this analysis. 
+
+These 86 variables contain summary values for the means and standard deviations of the parameters associated with the body movements of 30 subjects wearing smartphones during both training and test phases of the above-mentionned experiment, during which time they divided motion into 6 activity categories. 
+
+The activity categories and the descriptive codes used to describe them are:
+
+1. Walking              - walking
+2. Walking up stairs    - walkingupstairs
+3. Walking down stairs  - walkigndownstairs
+4. Sitting              - sitting
+5. Standing             - standing
+6. Laying               - laying
+
+The 86 variables in the mytidydata dataset are the mean and standard deviations of the parameters used in the experiment. 
+The following character string conventions were used to assemble the 86 parameter names:
+
+* X, Y and Z (capital letters) represent the 3 axes of movement, and are placed at the end of the relevant character strings (names)
+* spaces are not used
+* all letters other than dimensions are lower case
+* body, acceleration, gravity, gyro, magnetic, frequency are all spelt in full
+* mean is spelt in full, standard deviation is shortened to "stdev", a commonly used abbreviation, both are placed near to the end of the string but before the axis where there is one
+* fourier was placed as the initial character string component for fourier-transformed data
+* angle denotes angular parameters
+
+Using these conventions produced the 86 parameter names listed below grouped by category. All of these are mean values of the original data (mean of the means and mean of the standard deviations)
+
+A. Parameter names for the means of mean value data
+
+* Mean values of body, gravity and jerk acceleration parameters - 3 dimensions                                             
+ "bodyaccelerationmeanX"                               
+ "bodyaccelerationmeanY"                               
+ "bodyaccelerationmeanZ"
+
+ "gravityaccelerationmeanX"                            
+ "gravityaccelerationmeanY"                            
+ "gravityaccelerationmeanZ"
+
+ "bodyaccelerationjerkmeanX"                           
+ "bodyaccelerationjerkmeanY"                           
+ "bodyaccelerationjerkmeanZ"
+
+* mean values of gyro and magnetic parameters - 3 dimensions
+
+ "bodygyromeanX"                                       
+ "bodygyromeanY"                                       
+ "bodygyromeanZ"
+
+ "bodygyrojerkmeanX"                                   
+ "bodygyrojerkmeanY"                                   
+ "bodygyrojerkmeanZ"
+
+* mean values of magnetic parameters 
+
+ "bodyaccelerationmagneticmean"                        
+ "gravityaccelerationmagneticmean"                     
+ "bodyaccelerationjerkmagneticmean"
+ "bodygyromagneticmean"                                
+ "bodygyrojerkmagneticmean"
+
+* Mean values of Fourier transformed parameters - 3 dimensions
+
+ "fourierbodyaccelerationmeanX"                        
+ "fourierbodyaccelerationmeanY"                        
+ "fourierbodyaccelerationmeanZ"
+
+ "fourierbodyaccelerationfrequencymeanX"               
+ "fourierbodyaccelerationfrequencymeanY"               
+ "fourierbodyaccelerationfrequencymeanZ"
+
+ "fourierbodyaccelerationjerkmeanX"                    
+ "fourierbodyaccelerationjerkmeanY"                    
+ "fourierbodyaccelerationjerkmeanZ"
+
+ "fourierbodyaccelerationjerkfrequencymeanX"           
+ "fourierbodyaccelerationjerkfrequencymeanY"           
+ "fourierbodyaccelerationjerkfrequencymeanZ" 
+
+ "fourierbodygyromeanX"                                
+ "fourierbodygyromeanY"                                
+ "fourierbodygyromeanZ"   
+
+ "fourierbodygyrofrequencymeanX"                       
+ "fourierbodygyrofrequencymeanY"                       
+ "fourierbodygyrofrequencymeanZ"
+
+* Mean values of Fourier transformed parameters - gyro and magnetic parameters
+
+ "fourierbodyaccelerationmagneticmean"                 
+ "fourierbodyaccelerationmagneticfrequencymean"        
+ "fourierbodyBodyaccelerationjerkmagneticmean"         
+ "fourierbodyBodyaccelerationjerkmagneticfrequencymean"
+ "fourierbodyBodygyromagneticmean"                     
+ "fourierbodyBodygyromagneticfrequencymean"            
+ "fourierbodyBodygyrojerkmagneticmean"                 
+ "fourierbodyBodygyrojerkmagneticfrequencymean"
+
+* Angular parameters mean values
+
+ "anglebodyaccelerationmeangravity"                    
+ "anglebodyaccelerationjerkmeangravitymean"            
+ "anglebodygyromeangravitymean"                        
+ "anglebodygyrojerkmeangravitymean"                    
+ "angleXgravitymean"                                   
+ "angleYgravitymean"                                   
+ "angleZgravitymean"     
+
+B. Parameter values for the mmeans of standard deviation data
+
+* mean standard deviations of acceleration - 3 dimensions
+
+ "bodyaccelerationstdevX"                              
+ "bodyaccelerationstdevY"                              
+ "bodyaccelerationstdevZ" 
+
+ "gravityaccelerationstdevX"                           
+ "gravityaccelerationstdevY"                           
+ "gravityaccelerationstdevZ"
+
+ "bodyaccelerationjerkstdevX"                          
+ "bodyaccelerationjerkstdevY"                          
+ "bodyaccelerationjerkstdevZ" 
+
+* mean standard deviations of gyro parameters - 3 dimensions
+
+ "bodygyrostdevX"                                      
+ "bodygyrostdevY"                                      
+ "bodygyrostdevZ" 
+
+ "bodygyrojerkstdevX"                                  
+ "bodygyrojerkstdevY"                                  
+ "bodygyrojerkstdevZ" 
+
+* mean standard deviations of magnetic/gyro parameters
+
+ "bodyaccelerationmagneticstdev"                       
+ "gravityaccelerationmagneticstdev"                    
+ "bodyaccelerationjerkmagneticstdev" 
+ "bodygyromagneticstdev"                               
+ "bodygyrojerkmagneticstdev" 
+
+* mean standard deviations of Fourrier transformed parameters - 3 dimensions
+
+ "fourierbodyaccelerationstdevX"                       
+ "fourierbodyaccelerationstdevY"                       
+ "fourierbodyaccelerationstdevZ" 
+
+ "fourierbodyaccelerationjerkstdevX"                   
+ "fourierbodyaccelerationjerkstdevY"                   
+ "fourierbodyaccelerationjerkstdevZ" 
+
+ "fourierbodygyrostdevX"                               
+ "fourierbodygyrostdevY"                               
+ "fourierbodygyrostdevZ"  
+
+* mean standard deviations of mmagnetic Fourrier transformed parameters 
+
+ "fourierbodyaccelerationmagneticstdev"                
+ "fourierbodyBodyaccelerationjerkmagneticstdev"        
+ "fourierbodyBodygyromagneticstdev"                    
+ "fourierbodyBodygyrojerkmagneticstdev" 
+
+3. Data presentation format
+
+The data are summarised by parameter for each subject and activity combination, thus giving a tidy data set in standard narrow/long format with four columns with column names. The names are given below, followed by a description of the comments given in ():
+
+1. activity (character strings - the codes for the six activities as in part 2)
+2. subject  (the 30 subjects, numbered 1 to 30)
+3. test.train.variable (character strings, the names for the 86 variables for the combined test and training data set as described in part2 above)
+4. mean.value (the mean value of the variable in column 3 for the activity in column 1 and the subject in column 2, calculated using the aggregate function in R - for details see "README.md" and "run_analysis.R")
+
+The data are sorted as follows:
+
+* Activity 1 to 6: all data for activity 1, then activity2 ... activity 6
+
+* Subject 1 to 30: within each activity, all data for each subject, in the order given above, i.e. all mean parameters then all standard deviation parameters, * each grouped by parameter type with the three-dimensional paramters (X,Y,Z values) first followed by parameters without a dimension factor.
+
+
+This nested logical order will make it easy to locate any particular variable or variables of interest (e.g. to print or for further analysis) using R or other common software such as excel and text editors such wordpad. 
+
+ 
