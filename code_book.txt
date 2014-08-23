@@ -1,7 +1,8 @@
 This is the Code Book for Coursera Getting and Cleaning Data Assignment by student Abigail Moore
 
-This code book describes the data in the file "mytidydata.txt", stored on my Github repository (https://github.com/abigail2105/GCDataAssignment) with the direct link url: https://github.com/abigail2105/GCDataAssignment/blob/bfded6225acacdcdba0707e389de55b7acb05f41/run_analysis.R
-and READ.me file stored in the same repository at https://github.com/abigail2105/GCDataAssignment/blob/master/README.md.
+This code book describes the data in the file "mytidydata.txt", stored on my Github repository (https://github.com/abigail2105/GCDataAssignment, direct link https://github.com/abigail2105/GCDataAssignment/blob/master/mytidydata.txt) as well as uploaded to my Coursera submissions page and produced by the code in run-alaysis.R.(https://github.com/abigail2105/GCDataAssignment/blob/bfded6225acacdcdba0707e389de55b7acb05f41/run_analysis.R).
+
+The README.md file is stored in the same repository at https://github.com/abigail2105/GCDataAssignment/blob/master/README.md.
 
 1. Data origin and acknowledgments
 
